@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FairyWood — добрые игры для детей и всей семьи</title>
+<meta name="description" content="FairyWood — независимая студия из Астрахани. Делаем добрые мобильные игры для детей и всей семьи: пазлы, сказки, головоломки.">
+<link rel="icon" href="img/puzzles.png">
+<style>
+  :root {
+    --forest: #17382b;
+    --forest-deep: #0f271e;
+    --moss: #2f6b4f;
+    --cream: #fbf6ea;
+    --paper: #fffdf7;
+    --ink: #1d2a24;
+    --muted: #5d6b63;
+    --gold: #e9b44c;
+    --line: #e6dcc6;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font: 17px/1.6 "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  a { color: var(--moss); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+  header.top {
+    background: var(--forest-deep);
+    color: var(--cream);
+    position: sticky; top: 0; z-index: 5;
+  }
+  header.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 60px; }
+  .brand { font-family: Georgia, "Times New Roman", serif; font-size: 24px; letter-spacing: .5px; color: var(--cream); text-decoration: none; }
+  .brand b { color: var(--gold); font-weight: 400; }
+  nav a { color: var(--cream); text-decoration: none; margin-left: 20px; font-size: 15px; opacity: .85; }
+  nav a:hover { opacity: 1; color: var(--gold); }
+
+  .hero {
+    background:
+      radial-gradient(900px 380px at 80% -10%, rgba(233,180,76,.28), transparent 60%),
+      linear-gradient(180deg, var(--forest-deep), var(--forest) 70%, var(--moss));
+    color: var(--cream);
+    padding: 72px 0 96px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(34px, 6vw, 60px);
+    line-height: 1.1;
+    margin: 0 0 18px;
+    max-width: 15em;
+    text-wrap: balance;
+  }
+  .hero h1 em { color: var(--gold); font-style: italic; }
+  .hero p { max-width: 36em; margin: 0 0 28px; font-size: 19px; opacity: .92; }
+  .btn {
+    display: inline-block; background: var(--gold); color: #2a1e05; text-decoration: none;
+    padding: 12px 22px; border-radius: 999px; font-weight: 600;
+  }
+  .btn:hover { filter: brightness(1.06); }
+  .btn.ghost { background: transparent; color: var(--cream); border: 1px solid rgba(251,246,234,.5); margin-left: 10px; }
+  .trees { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: 70px; display: block; }
+
+  section { padding: 64px 0; }
+  h2 {
+    font-family: Georgia, "Times New Roman", serif; font-weight: 400;
+    font-size: clamp(26px, 4vw, 36px); margin: 0 0 8px;
+  }
+  .lead { color: var(--muted); margin: 0 0 32px; max-width: 40em; }
+
+  .games { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+  .game {
+    display: flex; gap: 14px; align-items: center;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 18px;
+    padding: 14px; text-decoration: none; color: inherit;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .game:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(23,56,43,.14); }
+  .game img { width: 76px; height: 76px; border-radius: 18px; flex: none; object-fit: cover; background: var(--line); }
+  .game h3 { margin: 0 0 2px; font-size: 17px; line-height: 1.25; }
+  .game span { color: var(--muted); font-size: 14px; }
+
+  .about { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .cols { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; }
+  .cols p { margin: 0 0 14px; }
+  .facts { list-style: none; margin: 0; padding: 0; }
+  .facts li { padding: 12px 0; border-bottom: 1px dashed var(--line); }
+  .facts li:last-child { border: 0; }
+  .facts b { display: block; font-family: Georgia, serif; font-weight: 400; font-size: 26px; color: var(--moss); }
+
+  .contacts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .card { background: var(--paper); border: 1px solid var(--line); border-radius: 18px; padding: 22px; }
+  .card h3 { margin: 0 0 10px; font-size: 16px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 600; }
+  .card p { margin: 0 0 6px; overflow-wrap: anywhere; }
+
+  footer { background: var(--forest-deep); color: rgba(251,246,234,.75); padding: 26px 0; font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer a { color: var(--gold); }
+
+  @media (max-width: 760px) {
+    .cols, .contacts { grid-template-columns: 1fr; gap: 24px; }
+    nav a { margin-left: 14px; font-size: 14px; }
+    .hero { padding: 48px 0 80px; }
+    .btn.ghost { margin: 10px 0 0; }
+    section { padding: 44px 0; }
+  }
+  @media (max-width: 420px) { nav a.opt { display: none; } }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } .game { transition: none; } }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#">Fairy<b>Wood</b></a>
+    <nav>
+      <a href="#games">Игры</a>
+      <a class="opt" href="#about">О студии</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>Добрые игры, в которых <em>оживают</em> сказки</h1>
+    <p>FairyWood — независимая студия из Астрахани. Мы делаем мобильные игры для детей и всей семьи: живые пазлы, сказки, в которые можно играть, и спокойные головоломки.</p>
+    <a class="btn" href="#games">Смотреть игры</a>
+    <a class="btn ghost" href="https://www.rustore.ru/catalog/developer/n9j3eun7" target="_blank" rel="noopener">Мы в RuStore</a>
+  </div>
+  <svg class="trees" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true">
+    <path fill="#fbf6ea" d="M0 70V48l40-26 34 24 46-38 44 36 38-22 50 30 42-40 48 38 36-20 52 26 44-36 46 34 40-24 48 30 42-38 50 36 38-22 46 28 44-40 48 38 36-18 52 24 44-34 52 36 40-22L1200 40V70z"/>
+  </svg>
+</div>
+
+<section id="games">
+  <div class="wrap">
+    <h2>Наши игры</h2>
+    <p class="lead">Десять игр для Android. Все бесплатно скачиваются и подходят детям.</p>
+    <div class="games">
+      <a class="game" href="https://www.rustore.ru/catalog/app/com.fairywood.livingpuzzles" target="_blank" rel="noopener">
+        <img src="img/puzzles.png" alt="" width="76" height="76">
+        <div><h3>Живые пазлы</h3><span>Пазлы для детей 3–6 лет</span></div>
+      </a>
+      <a class="game" href="https://www.rustore.ru/catalog/app/com.fairywood.livingpuzzles2" target="_blank" rel="noopener">
+        <img src="img/puzzles2.png" alt="" width="76" height="76">
+        <div><h3>Живые пазлы 2: Животные мира</h3><span>Пазлы для детей 3–6 лет</span></div>
+      </a>
+      <a class="game" href="https://www.rustore.ru/catalog/app/com.fairywood.soberimultik" target="_blank" rel="noopener">
+        <img src="img/multik.png" alt="" width="76" height="76">
+        <div><h3>Собери мультик</h3><span>Пазлы для детей</span></div>
+      </a>
+      <a class="game" href="https://www.rustore.ru/catalog/app/org.skazki.kolobok" target="_blank" rel="noopener">
+        <img src="img/skazki.png" alt="" width="76" height="76">
+        <div><h3>Сказки для детей — играй!</h3><span>Детская · Семейная</span></div>
+      </a>
+      <a class="game" href="https://www.rustore.ru/catalog/app/ru.fairywood.zveryata" target="_blank" rel="noopener">
+        <img src="img/zveryata.png" alt="" width="76" height="76">
+        <div><h3>Приключения зверят</h3><span>Детская</span></div>
+      </a>
+      <a class="game" href="https://www.rustore.ru/catalog/app/ru.doctorkatya.game" target="_blank" rel="noopener">
+        <img src="img/doctor.png" alt="" width="76" height="76">
+        <div><h3>Доктор Катя</h3><span>Детская · Казуальная</span></div>
+      </a>
+      <a class="game" href="https://www.rustore.ru/catalog/app/com.fairywood.lukomorye" target="_blank" rel="noopener">
+        <img src="img/lukomorye.png" alt="" width="76" height="76">
+        <div><h3>Сказочное Лукоморье</h3><span>Головоломка</span></div>
+      </a>
+      <a class="game" href="https://www.rustore.ru/catalog/app/ru.fairyastra.trivriead" target="_blank" rel="noopener">
+        <img src="img/yarmarka.png" alt="" width="76" height="76">
+        <div><h3>Три в ряд: Ярмарка сказок</h3><span>Головоломка · Казуальная</span></div>
+      </a>
+      <a class="game" href="https://www.rustore.ru/catalog/app/ru.fairywood.matryoshki" target="_blank" rel="noopener">
+        <img src="img/matryoshki.png" alt="" width="76" height="76">
+        <div><h3>Матрёшки: раскрути!</h3><span>Головоломка</span></div>
+      </a>
+      <a class="game" href="https://www.rustore.ru/catalog/app/com.fairywood.slimedrop" target="_blank" rel="noopener">
+        <img src="img/slime.png" alt="" width="76" height="76">
+        <div><h3>Слаймы — кидай и соединяй!</h3><span>Головоломка · Казуальная</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap cols">
+    <div>
+      <h2>О студии</h2>
+      <p>FairyWood — маленькая семейная студия. Первая игра, «Живые пазлы», появилась для собственной дочки: в ней девочка-помощница говорит настоящим детским голосом, а собранная картинка оживает.</p>
+      <p>С тех пор мы делаем игры по одному правилу: ребёнку должно быть интересно, а родителю — спокойно. Без пугающих сцен и без навязчивой рекламы.</p>
+      <p lang="en"><b>In English.</b> FairyWood is an independent game studio based in Astrakhan, Russia. We develop and publish kind mobile games for children and families: animated jigsaw puzzles, playable fairy tales and casual puzzle games for Android.</p>
+    </div>
+    <ul class="facts">
+      <li><b>10 игр</b>выпущено для Android</li>
+      <li><b>0+</b>подходят детям с трёх лет</li>
+      <li><b>Астрахань</b>здесь мы живём и работаем</li>
+    </ul>
+  </div>
+</section>
+
+<section id="contacts">
+  <div class="wrap">
+    <h2>Контакты</h2>
+    <p class="lead">Напишите нам, если нашли ошибку, хотите предложить идею или обсудить сотрудничество.</p>
+    <div class="contacts">
+      <div class="card">
+        <h3>Связь</h3>
+        <p>Почта: <a href="mailto:225705@mail.ru">225705@mail.ru</a></p>
+        <p>Канал: <a href="https://max.ru/channel_fairywood" target="_blank" rel="noopener">max.ru/channel_fairywood</a></p>
+        <p>Игры: <a href="https://www.rustore.ru/catalog/developer/n9j3eun7" target="_blank" rel="noopener">страница в RuStore</a></p>
+      </div>
+      <div class="card" id="legal">
+        <h3>Реквизиты · Legal</h3>
+        <p>ИП Полежаев Владимир Михайлович</p>
+        <p lang="en">Individual Entrepreneur Polezhaev Vladimir Mikhailovich</p>
+        <p>ИНН 301506722650 · ОГРНИП 326300000021668</p>
+        <p>Россия, г. Астрахань · Astrakhan, Russia</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 FairyWood</span>
+    <a href="privacy.html">Политика конфиденциальности</a>
+  </div>
+</footer>
+
+</body>
+</html>
